@@ -1,0 +1,16 @@
+crds:
+  install: true
+  keep: false
+
+configs:
+  params:
+    create: true
+    server.insecure: true
+  cm:
+    create: true
+
+server:
+  insecure: true
+  tls: false
+  ingress:
+    enabled: false

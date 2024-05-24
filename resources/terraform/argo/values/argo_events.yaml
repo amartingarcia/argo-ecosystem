@@ -1,0 +1,11 @@
+crds:
+  install: true
+  keep: false
+
+controller:
+  serviceAccount:
+    create: true
+    name: argo-events
+  webhook:
+    create: true
+    port: 443

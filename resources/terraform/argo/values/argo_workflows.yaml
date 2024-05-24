@@ -1,0 +1,19 @@
+crds:
+  install: true
+  keep: false
+
+controller:
+  serviceAccount:
+    create: true
+    name: argo-controller
+  workflowNamespaces:
+   - argo-ecosystem
+   - default
+
+server:
+  ingress:
+    enabled: false
+  authModes:
+    - client
+  sso:
+    enabled: false

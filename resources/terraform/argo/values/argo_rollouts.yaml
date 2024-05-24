@@ -1,0 +1,5 @@
+installCRDs: true
+keepCRDs: false
+clusterInstall: true
+dashboard:
+  enabled: true
