@@ -1,0 +1,9 @@
+{{- range $key, $value := .Values.applications }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .name }}
+spec:
+  {{- toYaml .spec | nindent 2 }}
+{{- end }}

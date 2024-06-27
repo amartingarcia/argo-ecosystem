@@ -1,0 +1,57 @@
+---
+# Define repositories 
+repositories:
+  # Example: Private HTTPS Repository
+  - name: my-private-https-repo
+    stringData:
+      url: https://github.com/argoproj/argocd-example-apps
+      password: my-password
+      username: my-username
+      insecure: "true"
+      forceHttpBasicAuth: "true"
+      enableLfs: "true"
+  # Example: Private SSH Repository
+  - name: my-private-ssh-repo
+    stringData:
+      url: ssh://git@github.com/argoproj/argocd-example-apps
+      sshPrivateKey: |
+        -----BEGIN OPENSSH PRIVATE KEY-----
+        ...
+        -----END OPENSSH PRIVATE KEY-----
+      insecure: "true"
+      enableLfs: "true"
+  # Example: Public Helm Repository
+  - name: public-helm-repo
+    stringData:
+      url: https://storage.googleapis.com/istio-prerelease/daily-build/master-latest-daily/charts
+      name: istio.io
+      type: helm
+  # Example: Private Helm Repository
+  - name: private-helm-repo
+    stringData:
+      url: https://my-private-chart-repo.internal
+      name: private-repo
+      type: helm
+      password: my-password
+      username: my-username
+  # Example: Public Repository
+  - name: public-repo
+    stringData:
+      url: https://github.com/argoproj/public-repo
+
+# Define applications
+applications:
+  - name: simple-server
+    spec:
+      destination:
+        namespace: default # Namespace to deploy the application to
+        server: 'https://kubernetes.default.svc' # Kubernetes API server URL
+      source:
+        path: k8s/ # Path within the repository to the application's manifests
+        repoURL: 'git@github.com:amartingarcia/argocd-sample.git' # Repository URL for the application source
+        targetRevision: release # Git revision to use (e.g., branch, tag, commit)
+      project: default # Project in which the application is defined
+      syncPolicy:
+        automated:
+          prune: false # Do not automatically delete resources that are no longer defined in the repository
+          selfHeal: true # Automatically sync cluster state with the desired state defined in the repository
